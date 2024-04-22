@@ -1,5 +1,6 @@
 'use client'
 import { useStore } from '@/src/store'
+import { ProductDetails } from './ProductDetails'
 
 export default function OrderSumary () {
   const order = useStore(state => state.order)
@@ -9,8 +10,11 @@ export default function OrderSumary () {
 
       {order.length === 0
         ? <span className='text-center block my-10'>No items agregados</span>
-        : <div>Si hay algo</div>
+        : (<div className='mt-5'> {order.map(item => (
+          <ProductDetails key={item.id} item={item} />
+        ))}</div>)
       }
     </aside>
   )
 }
+

@@ -8,7 +8,6 @@ type CategoryIcons = {
 }
 const CategoryIcons = ({ category }: CategoryIcons) => {
   const params = useParams()
-  console.log(category.slug)
   return (
     <Link
       href={`/order/${category.slug}`}
