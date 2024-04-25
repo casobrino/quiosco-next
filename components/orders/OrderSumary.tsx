@@ -1,16 +1,40 @@
 'use client'
-import { useStore } from '@/src/store'
-import { ProductDetails } from './ProductDetails'
-import { useMemo } from 'react'
-import FormatCurrency from '@/src/utils'
 import { createOrder } from '@/actions/createOrderAction'
+import { OderderSchema } from '@/src/schema'
+import { useStore } from '@/src/store'
+import FormatCurrency from '@/src/utils'
+import { useMemo } from 'react'
+import { toast } from 'react-toastify'
+import { ProductDetails } from './ProductDetails'
 
 export default function OrderSumary () {
   const order = useStore(state => state.order)
   const total = useMemo(() => order.reduce((total, item) => total + (item.quantity * item.price), 0), [order])
-  const handleCreateOrder = (formData: FormData) => {
-    console.log(formData.get('name'))
+
+  const handleCreateOrder = async (formData: FormData) => {
+    const data = {
+      name: formData.get('name'),
+      total,
+      order
+    }
+
+    const result = OderderSchema.safeParse(data)
+    if (!result.success) {
+      result.error.issues.forEach((issue) => {
+        toast.error(issue.message)
+      })
+      return
+    }
+
+    const response = await createOrder(data)
+    if (response?.errors) {
+      response.errors.forEach(issue => {
+        toast(issue.message)
+      })
+    }
+
   }
+
   return (
     <aside className='lg:h-screen lg:overflow-y-scroll md:w-64 lg:w-96 p-5'>
       <h1 className='text-4xl text-center font-black'>Mi pedido</h1>
