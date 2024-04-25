@@ -9,6 +9,7 @@ interface Store {
   decreaseQuantity: (id: Product['id']) => void
   removeItem: (id: Product['id']) => void
   calculateTotal: (id: Product['id']) => number
+  clearOrder: () => void
 }
 
 export const useStore = create<Store>((set, get) => ({
@@ -58,5 +59,10 @@ export const useStore = create<Store>((set, get) => ({
   },
   calculateTotal: (id) => {
     return 1
+  },
+  clearOrder: () => {
+    set(() => ({
+      order: []
+    }))
   }
 }))
