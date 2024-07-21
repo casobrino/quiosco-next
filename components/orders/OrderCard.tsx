@@ -22,7 +22,7 @@ const OrderCard = ({ order }: OrderTypeProps) => {
               ({product.quantity}) {' '}
             </span>
           </dt>
-          <dd className='text-sm font-medium text-gray-900 '>
+          <dd className='text-sm font-medium text-gray-900'>
             {product.product.name}
           </dd>
         </div>
