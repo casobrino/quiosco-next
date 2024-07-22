@@ -7,10 +7,8 @@ export async function completeOrder (formData: FormData) {
   const data = {
     orderId: formData.get('order_id')
   }
-  console.log(data)
   const result = OrderIdSchema.safeParse(data)
   if (result.success) {
-    console.log(result.data.orderId)
     try {
       await prisma.order.update({
         where: {
