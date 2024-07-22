@@ -1,18 +1,19 @@
-import Image from 'next/image'
+import FormatCurrency, { getImagePath } from '@/src/utils'
 import { Product } from '@prisma/client'
-import FormatCurrency from '@/src/utils'
+import Image from 'next/image'
 import { AddProduct } from './AddProduct'
 
 type ProductCardProps = {
   product: Product
 }
 const ProductCard = ({ product }: ProductCardProps) => {
+  const imagePath = getImagePath(product.image)
   return (
     <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 mx-auto">
       <div className='rounded-t-lg min-h-[384px] relative'>
         <Image
           className="p-3 rounded-lg object-cover"
-          src={`/products/${product.image}.jpg`}
+          src={imagePath}
           alt="product image"
           fill
           quality={50}

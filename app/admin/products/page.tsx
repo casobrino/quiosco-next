@@ -1,10 +1,10 @@
-import { redirect } from 'next/navigation'
 import ProductPagination from '@/components/products/ProductsPagination'
 import ProductTable from '@/components/products/ProductsTable'
+import ProductSearchForm from '@/components/products/SearchForm'
 import Heading from '@/components/ui/Heading'
 import { prisma } from '@/src/lib/prisma'
 import Link from 'next/link'
-import ProductSearchForm from '@/components/products/SearchForm'
+import { redirect } from 'next/navigation'
 
 async function productCount () {
   return await prisma.product.count()
