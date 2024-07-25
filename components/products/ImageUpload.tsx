@@ -1,8 +1,9 @@
 'use client'
+import { getImagePath } from '@/src/utils'
 import { CldUploadWidget } from 'next-cloudinary'
 import Image from 'next/image'
 import { useState } from 'react'
-export default function ImageUpload () {
+export default function ImageUpload ({ image }: { image: string | undefined }) {
   const [imgURL, setImgUrl] = useState('')
   return (
     <CldUploadWidget
@@ -49,10 +50,25 @@ export default function ImageUpload () {
               )}
             </div>
           </div>
+          {
+            image && !imgURL && (
+              <div className="space-y-2">
+                <label>Imagen actual</label>
+                <div className='relative w-64 h-64'>
+                  <Image
+                    fill
+                    src={getImagePath(image)}
+                    alt='Actual imagen del producto'
+                  />
+                </div>
+              </div>
+            )
+          }
           <input
             type='hidden'
             name='image'
-            value={imgURL}
+            defaultValue={imgURL ? imgURL : image}
+            style={{objectFit: 'contain'}}
           />
         </>
       )}

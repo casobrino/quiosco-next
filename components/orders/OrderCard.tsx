@@ -1,6 +1,7 @@
 import { completeOrder } from '@/actions/complete-order-action'
 import { OrderWithProducts } from '@/src/types'
 import FormatCurrency from '@/src/utils'
+import { OrderCardButton } from './OrderCardButton'
 
 
 type OrderTypeProps = { order: OrderWithProducts }
@@ -40,11 +41,7 @@ const OrderCard = ({ order }: OrderTypeProps) => {
           value={order.id}
           name='order_id'
         />
-        <input
-          type="submit"
-          className="bg-indigo-600 hover:bg-indigo-800 text-white w-full mt-5 p-3 uppercase font-bold cursor-pointer"
-          value='Marcar Orden Completada'
-        />
+        <OrderCardButton/>
       </form>
     </section>
   )
